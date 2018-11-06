@@ -1,0 +1,22 @@
+{
+  "name": "HUDGEN",
+  "version": "0.0.1",
+  "description": "Tool for generation of HUDs in TF2",
+  "main": "generate.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "diff": "DEBUG=diff node diff.js",
+    "generate": "DEBUG=generate node generate.js",
+    "complete": "DEBUG=HUDGEN:* node diff.js && DEBUG=HUDGEN:* node generate.js"
+  },
+  "author": "Matthew \"Gamemaster\" Stanley",
+  "license": "ISC",
+  "dependencies": {
+    "deep-diff": "^1.0.2",
+    "deepmerge": "^2.2.1",
+    "lodash": "^4.17.11",
+    "mkdirp": "^0.5.1",
+    "readdirp": "^2.2.1",
+    "simple-vdf-mstan": "^1.3.1"
+  }
+}

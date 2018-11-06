@@ -1,0 +1,10 @@
+/node_modules/
+/src/custom/tf/*
+/src/custom/info.vdf
+/src/diff/tf/*
+/src/diff/info.vdf
+/src/official/tf/*
+/src/diff/info.vdf
+/src/output/tf/*
+/src/output/info.vdf
+.DS_Store
