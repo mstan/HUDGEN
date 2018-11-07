@@ -1,8 +1,11 @@
 let mkdirp = require('mkdirp'); // create directories that don't exist
 let fs = require('fs'); // filesystem reader.
+let debug = require('debug')('HUDGEN:lib');
 
 function copy(entry,dir) {
-    let { path, parentDir, fullParentDir } = entry;
+    let { name, path, parentDir, fullParentDir } = entry;
+
+    if(name == 'hudanimations_tf.txt') debug('WARN: Using hudanmiations_tf.txt is not recommended. Use manifest instead.');
 
     mkdirp(`${__dirname}/src/${dir}/${parentDir}`, (err) => {
         if(err) throw new Error(err);
