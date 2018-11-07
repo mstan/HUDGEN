@@ -4,11 +4,12 @@ HUDGEN is a HUD generator written by [Gamemaster](https://steamcommunity.com/id/
 # Setup & Usage
 
 * Install NodeJS (recommended v8 or later)
+* Install NPM (Node Package Manager)
 * Clone/download repository
 * `npm install`
 * Copy your custom hud into /src/custom/
 * Copy the latest version of the stock hud into /src/official/
-* Run the command `node complete`
+* Run the command `npm run complete`
 
 ## What this does
 
