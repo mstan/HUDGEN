@@ -22,7 +22,22 @@ readdirp(config)
         let fileType = entry.name.split('.')[1];
 
         if(fileType == 'res') {
-            generate(entry);
+            try {
+                generate(entry)
+            // while crude, right now we're going to see if the error is ENOENT
+            } catch(e) {
+                let isFileMissing = e.message.toString().indexOf('ENOENT') > -1;
+
+                // If it IS file missing error, parsing was presumably okay
+                // Just copy it for now, then.
+                if(isFileMissing) {
+                    // copy it instead
+                    copy(entry, 'output')
+                } else {
+                    // actually throw the error
+                    throw new Error(e);
+                }
+            }
         } else if (fileType == 'txt') {
             copy(entry,'output');
         } else if (fileType == 'vdf') {
