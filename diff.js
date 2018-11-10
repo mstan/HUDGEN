@@ -24,7 +24,23 @@ readdirp(config)
         let fileType = entry.name.split('.')[1];
 
         if(fileType == 'res') {
-            compare(entry);
+            // if it is a res file, try to compare and parse
+            try {
+                compare(entry)
+            // while crude, right now we're going to see if the error is ENOENT
+            } catch(e) {
+                let isFileMissing = e.message.toString().indexOf('ENOENT') > -1;
+
+                // If it IS file missing error, parsing was presumably okay
+                // Just copy it for now, then.
+                if(isFileMissing) {
+                    // copy it instead
+                    copy(entry, 'diff')
+                } else {
+                    // actually throw the error
+                    //throw new Error(e);
+                }
+            }
         } else if (fileType == 'txt') {
             copy(entry,'diff');
         } else if (fileType == 'vdf') {
