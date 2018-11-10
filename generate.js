@@ -6,7 +6,7 @@ let readdirp = require('readdirp'); // recursive dir reading
 let mkdirp = require('mkdirp'); // create directories that don't exist
 let debug = require('debug')('HUDGEN:generator');
 
-let { copy, validateVDF } = require('./lib.js');
+let { copy, validateVDF, parseIncludes, addIncludes } = require('./lib.js');
 
 
 
@@ -51,15 +51,21 @@ function generate(entry) {
     debug(`Handling data for ${path} (${fullParentDir})`)
 
     let custom = fs.readFileSync(`${__dirname}/src/diff/${path}`, 'utf8');
+    let source = custom;
+
         custom = validateVDF(custom);
         custom = vdf.parse(custom);
+
+    let includes = parseIncludes(source);
 
     let original = fs.readFileSync(`${__dirname}/src/official/${path}`, 'utf8');
         original = validateVDF(original);
         original = vdf.parse(original);
 
+
     let merged = deepmerge(original,custom);
         merged = vdf.stringify(merged, true);
+        merged = addIncludes(includes,merged);
 
     mkdirp(`${__dirname}/src/output/${parentDir}`, (err) => {
         if(err) throw new Error(err);

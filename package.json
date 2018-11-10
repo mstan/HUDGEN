@@ -1,12 +1,13 @@
 {
   "name": "HUDGEN",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Tool for generation of HUDs in TF2",
   "main": "generate.js",
   "scripts": {
     "diff": "DEBUG=*diff node diff.js",
     "generate": "DEBUG=*generate node generate.js",
-    "complete": "DEBUG=HUDGEN:* node diff.js && DEBUG=HUDGEN:* node generate.js"
+    "complete": "DEBUG=HUDGEN:* node diff.js && DEBUG=HUDGEN:* node generate.js",
+    "complete-windows": "node diff.js && node generate.js"
   },
   "author": "Matthew \"Gamemaster\" Stanley",
   "license": "ISC",

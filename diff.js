@@ -8,7 +8,7 @@ let mkdirp = require('mkdirp'); // create directories that don't exist
 let debug = require('debug')('HUDGEN:diff');
 let _ = require('lodash');
 
-let { copy, validateVDF } = require('./lib');
+let { copy, validateVDF, parseIncludes, addIncludes } = require('./lib');
 let { DUPLICATE_KEY } = require('./config.js')
 
 
@@ -38,7 +38,7 @@ readdirp(config)
                     copy(entry, 'diff')
                 } else {
                     // actually throw the error
-                    //throw new Error(e);
+                    throw new Error(e);
                 }
             }
         } else if (fileType == 'txt') {
@@ -56,12 +56,17 @@ function compare(entry) {
     debug(`Handling data for ${path} (${fullParentDir})`)
 
     let custom = fs.readFileSync(`${__dirname}/src/custom/${path}`, 'utf8');
+    let source = custom;
+
         custom = validateVDF(custom);
         custom = vdf.parse(custom, DUPLICATE_KEY);
+
+    let includes = parseIncludes(source);
 
     let original = fs.readFileSync(`${__dirname}/src/official/${path}`, 'utf8');
         original = validateVDF(original);
         original = vdf.parse(original, DUPLICATE_KEY);
+
 
 
 
@@ -95,6 +100,7 @@ function compare(entry) {
     })
 
     output = vdf.stringify(output, true, DUPLICATE_KEY);
+    output = addIncludes(includes,output);
 
     mkdirp(`${__dirname}/src/diff/${parentDir}`, (err) => {
         if(err) throw new Error(err);

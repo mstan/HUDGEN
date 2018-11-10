@@ -13,6 +13,29 @@ function copy(entry,dir) {
     });
 }
 
+function parseIncludes(data) {
+    let lines = data.split('\n');
+    let includes = [];
+
+    lines.forEach(function(line) {
+        if(line.indexOf('#') == 0 ) {
+            includes.push(line);
+        }
+    })
+
+    return includes;
+}
+
+function addIncludes(includes,output) {
+    let data = '';
+
+    includes.forEach(function(include) {
+        data += include + '\n';
+    })
+
+    return data + output;
+}
+
 function validateVDF(data) {
     data = data.replace(/(?:^\/{2}.+\n?)+/, ''); // strip comments
     /*
@@ -72,5 +95,7 @@ function validateVDF(data) {
 
 module.exports = {
     copy,
-    validateVDF
+    validateVDF,
+    parseIncludes,
+    addIncludes
 }
