@@ -1,6 +1,8 @@
 # HUDGEN HUD Generator
 HUDGEN is a HUD generator written by [Gamemaster](https://steamcommunity.com/id/Gamemaster1379) with the intent of making HUD iterations and generation easier.
 
+NOTE: At this time there are bugs when running this on Windows. OS X/Linux are recommended at this time. (Thanks exa_ for testing)
+
 # Setup & Usage
 
 * Install NodeJS (recommended v8 or later)
@@ -112,6 +114,7 @@ The diff is auto-generated as a diff between the original and custom HUD. This d
 
 ## Known Bugs and issues
 
+* Currently does not run properly on Windows (directory handling and env flags)
 * [$X360] and [$WIN32] are not supported. These are special tags postpended to key/value pairs that run based on whether the system is running in console mode or PC mode. The VDF parser cannot figure out the difference and will just try to assign the value twice. Therefore, the bottom value (most of the time, [$X360] is second) is the one assigned. This can break any HUDs that have both, but don't use the [$X360] value. It is recommended to remove these from all custom HUDs before running generation
 
 
